@@ -1,69 +1,51 @@
-import org.jetbrains.compose.compose
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm")
-    id("org.jetbrains.kotlin.plugin.compose")
     id("org.jetbrains.compose")
+    id("org.jetbrains.kotlin.plugin.compose")
     id("com.google.devtools.ksp")
+    kotlin("plugin.serialization") version "2.2.0"
 }
 
-group = "com.myapp"
-version = "1.0.0"
-
-repositories {
-    mavenCentral()
-    google()
-    maven { url = uri("https://jitpack.io") }
-    maven { url = uri("https://maven.pkg.jetbrains.space/public/p/compose/dev") }
-}
-
-val daggerVersion by extra("2.56.1")
+group = project.findProperty("package") as String
+version = project.findProperty("version") as String
 
 dependencies {
-    implementation(compose.desktop.macos_arm64  )
-
-    // Module dependencies
+    implementation(compose.desktop.macos_arm64)
+    implementation(libs.compose.desktop)
     implementation(project(":data"))
-
-    // Dagger : A fast dependency injector for Android and Java.
-    implementation("com.google.dagger:dagger:$daggerVersion")
-    ksp("com.google.dagger:dagger-compiler:$daggerVersion")
-    kspTest("com.google.dagger:dagger-compiler:$daggerVersion")
-
-    // Cyclone : https://github.com/theapache64/cyclone
-    implementation("com.github.theapache64:cyclone:1.0.0-alpha02")
-
-    // Decompose : Decompose
-    val voyagerVersion = "1.1.0-beta03"
-    // Navigator
-    implementation("cafe.adriel.voyager:voyager-navigator:$voyagerVersion")
+    //Dagger
+    implementation(libs.dagger)
+    ksp(libs.dagger.compiler)
+    //JVM apps Android way
+    implementation(libs.cyclone)
+    // Navigation
+    implementation(libs.voyager.navigator)
+    implementation(libs.kotlinx.serialization)
 
     /**
      * Testing Dependencies
      */
-    testImplementation("org.mockito:mockito-inline:5.2.0")
-    testImplementation("com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0")
+    testImplementation(libs.mockito.inline)
+    testImplementation(libs.mockito.kotlin)
 
     // DaggerMock
-    testImplementation("com.github.fabioCollini.daggermock:daggermock:0.8.5")
-    testImplementation("com.github.fabioCollini.daggermock:daggermock-kotlin:0.8.5")
+    testImplementation(libs.daggermock)
+    testImplementation(libs.daggermock.kotlin)
 
     // Mockito Core : Mockito mock objects library core API and implementation
-    testImplementation("org.mockito:mockito-core:5.17.0")
+    testImplementation(libs.mockito.core)
 
     // Expekt : An assertion library for Kotlin
-    testImplementation("com.github.theapache64:expekt:1.0.0")
-
-    // JUnit
+    testImplementation(libs.expekt)
 
     // Kotlinx Coroutines Test : Coroutines support libraries for Kotlin
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.0")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.8.0")
-    testImplementation(compose("org.jetbrains.compose.ui:ui-test-junit4"))
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.kotlinx.coroutines.swing)
+    testImplementation(libs.compose.ui.test.junit4)
 
-    // JUnit : JUnit is a unit testing framework for Java, created by Erich Gamma and Kent Beck.
+    //JUnit : JUnit is a unit testing framework for Java, created by Erich Gamma and Kent Beck.
     testImplementation(kotlin("test-junit5"))
 }
 

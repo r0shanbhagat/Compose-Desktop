@@ -1,6 +1,5 @@
 package com.myapp.ui.feature
 
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.rememberWindowState
@@ -35,7 +34,7 @@ class MainActivity : Activity() {
             Window(
                 onCloseRequest = ::exitApplication,
                 title = "${App.appArgs.appName} (${App.appArgs.version})",
-                icon = painterResource("drawables/launcher_icons/system.png"),
+//                icon = painterResource("drawables/launcher_icons/system.png"),
                 state = rememberWindowState(width = 1024.dp, height = 600.dp),
             ) {
                 MyAppTheme {

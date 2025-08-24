@@ -1,0 +1,41 @@
+[versions]
+dagger = "2.56.1"
+voyager = "1.1.0-beta03"
+kotlinx-coroutines = "1.8.0"
+mockito-inline = "5.2.0"
+mockito-kotlin = "2.2.0"
+mockito-core = "5.17.0"
+daggermock = "0.8.5"
+expekt = "1.0.0"
+cyclone = "1.0.0-alpha02"
+compose = "1.7.0"
+compose-plugin = "1.8.2"
+kotlin = "2.2.0"
+serialization = "1.9.0"
+
+
+[libraries]
+dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
+dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
+cyclone = { module = "com.github.theapache64:cyclone", version.ref = "cyclone" }
+voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
+mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockito-inline" }
+mockito-kotlin = { module = "com.nhaarman.mockitokotlin2:mockito-kotlin", version.ref = "mockito-kotlin" }
+daggermock = { module = "com.github.fabioCollini.daggermock:daggermock", version.ref = "daggermock" }
+daggermock-kotlin = { module = "com.github.fabioCollini.daggermock:daggermock-kotlin", version.ref = "daggermock" }
+mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito-core" }
+expekt = { module = "com.github.theapache64:expekt", version.ref = "expekt" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
+kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
+compose-ui-test-junit4 = { module = "org.jetbrains.compose.ui:ui-test-junit4", version.ref = "compose" }
+compose-desktop = { module = "org.jetbrains.compose.desktop:desktop", version.ref = "compose" }
+kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
+
+[plugins]
+jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+
+[metadata]
+group = "com.myapp"
+version = "1.0.0"

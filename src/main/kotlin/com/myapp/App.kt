@@ -35,7 +35,6 @@ class App(
  * The magic begins here
  */
 fun main() {
-
     val appArgs = AppArgs(
         appName = "My App", // To show on title bar
         version = "v1.0.0", // To show on title inside brackets
