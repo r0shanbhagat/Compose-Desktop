@@ -104,7 +104,7 @@ fun HomeScreenWithCards(
                                 Image(
                                     painter = app.painter,
                                     contentDescription = app.contentDescription,
-                                    modifier = Modifier.size(40.dp)
+                                    modifier = Modifier.size(48.dp)
                                 )
                             }
                         }
@@ -118,7 +118,7 @@ fun HomeScreenWithCards(
 @Composable
 fun homeItemList(): MutableList<AppIcon> {
     return mutableListOf(
-        AppIcon("powerbi.png", rememberBitmapResource("drawables/logo.png"), "Power BI"),
+        AppIcon("powerbi.png", rememberBitmapResource("drawables/passcode.png"), "Power BI"),
         AppIcon("netlify.png", rememberBitmapResource("drawables/logo.png"), "Netlify"),
         AppIcon("cloud-upload.png", rememberBitmapResource("drawables/logo.png"), "Cloud Upload"),
         AppIcon("sap.png", rememberBitmapResource("drawables/logo.png"), "SAP"),

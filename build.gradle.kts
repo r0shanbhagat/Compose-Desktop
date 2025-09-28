@@ -12,7 +12,7 @@ group = project.findProperty("package") as String
 version = project.findProperty("version") as String
 
 dependencies {
-    implementation(compose.desktop.macos_arm64)
+    implementation(compose.desktop.currentOs)
     implementation(libs.compose.desktop)
     implementation(project(":data"))
     //Dagger
@@ -53,24 +53,19 @@ compose.desktop {
     application {
         mainClass = "com.myapp.AppKt"
         nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
+            targetFormats(TargetFormat.Dmg)
             packageName = "myapp"
             packageVersion = "1.0.0"
-
-            val iconsRoot = project.file("src/main/resources/drawables")
-
-            linux {
-                iconFile.set(iconsRoot.resolve("launcher_icons/linux.png"))
-            }
-
-            windows {
-                iconFile.set(iconsRoot.resolve("launcher_icons/windows.ico"))
-            }
-
+            modules("java.desktop")
             macOS {
-                iconFile.set(iconsRoot.resolve("launcher_icons/macos.icns"))
+                targetFormats = setOf(TargetFormat.Dmg)
+                iconFile.set(project.file("src/main/resources/drawables/launcher_icons/macos.icns"))
+                bundleID = "com.myapp.desktop"
+                signing {
+                    sign.set(false) // Set to true and configure for notarization if you have an Apple Developer ID
+                }
             }
-
         }
+        jvmArgs += listOf("-Xmx2G", "-XX:+UseG1GC")
     }
 }

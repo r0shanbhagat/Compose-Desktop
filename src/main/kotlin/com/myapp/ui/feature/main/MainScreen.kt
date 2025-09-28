@@ -7,6 +7,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import cafe.adriel.voyager.core.screen.Screen
 import com.myapp.di.AppComponent
 import com.myapp.ui.component.ContentView
+import com.myapp.ui.feature.passcode.PasscodeScreen
 import javax.inject.Inject
 
 class MainScreen(
@@ -28,6 +29,7 @@ class MainScreen(
         ContentView(
             title = "Home3",
             surfaceColor = MaterialTheme.colors.background, content = {
+                PasscodeScreen(appComponent)
             })
     }
 }

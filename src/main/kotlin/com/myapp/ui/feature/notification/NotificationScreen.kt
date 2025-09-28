@@ -28,16 +28,41 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cafe.adriel.voyager.core.screen.Screen
+import com.myapp.di.AppComponent
 import com.myapp.ui.component.ThemedOutlinedTextField
+import com.myapp.ui.feature.main.MainViewModel
 import com.myapp.ui.value.R
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-// Model for a notification (received or sent)
-data class NotificationMessage(val title: String, val body: String, val time: String)
+class NotificationScreen(val appComponent: AppComponent) : Screen {
+    @Inject
+    lateinit var viewModel: MainViewModel
+
+    init {
+        appComponent.inject(this)
+    }
+
+    @Composable
+    override fun Content() {
+        NotificationScreenContent(
+            notifications = listOf(
+                NotificationMessage("Welcome", "This is a test notification", "2024-10-01 10:00"),
+                NotificationMessage("Update", "Your app has been updated", "2024-10-02 12:30")
+            ), onSendNotification = { title, body, token ->
+                // Simulate sending notification
+                kotlinx.coroutines.delay(2000)
+                Result.success("Notification sent")
+            })
+    }
+
+}
+
 
 @Composable
-fun NotificationScreen(
+fun NotificationScreenContent(
     notifications: List<NotificationMessage>,
     onSendNotification: suspend (title: String, body: String, token: String) -> Result<String>
 ) {
@@ -51,8 +76,7 @@ fun NotificationScreen(
     var errorMsg by remember { mutableStateOf<String?>(null) }
 
     Column(
-        modifier = Modifier.fillMaxSize()
-            .padding(24.dp),
+        modifier = Modifier.fillMaxSize().padding(24.dp),
         verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
         Card(
@@ -62,8 +86,7 @@ fun NotificationScreen(
             modifier = Modifier.fillMaxWidth()
         ) {
             Column(
-                Modifier.padding(24.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+                Modifier.padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
                     "Notification Panel",
@@ -80,20 +103,28 @@ fun NotificationScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
                 ThemedOutlinedTextField(
-                    value = body, onValueChange = { body = it },
-                    label = { Text("Body") }, modifier = Modifier.fillMaxWidth()
+                    value = body,
+                    onValueChange = { body = it },
+                    label = { Text("Body") },
+                    modifier = Modifier.fillMaxWidth()
                 )
                 ThemedOutlinedTextField(
-                    value = body, onValueChange = { alertType = it },
-                    label = { Text("Alert Type") }, modifier = Modifier.fillMaxWidth()
+                    value = body,
+                    onValueChange = { alertType = it },
+                    label = { Text("Alert Type") },
+                    modifier = Modifier.fillMaxWidth()
                 )
                 ThemedOutlinedTextField(
-                    value = body, onValueChange = { alertCode = it },
-                    label = { Text("Alert Code") }, modifier = Modifier.fillMaxWidth()
+                    value = body,
+                    onValueChange = { alertCode = it },
+                    label = { Text("Alert Code") },
+                    modifier = Modifier.fillMaxWidth()
                 )
                 ThemedOutlinedTextField(
-                    value = token, onValueChange = { token = it },
-                    label = { Text("Device Token") }, modifier = Modifier.fillMaxWidth()
+                    value = token,
+                    onValueChange = { token = it },
+                    label = { Text("Device Token") },
+                    modifier = Modifier.fillMaxWidth()
                 )
                 Button(
                     onClick = {
@@ -115,8 +146,7 @@ fun NotificationScreen(
                         }
                     },
                     enabled = !sending && title.isNotBlank() && body.isNotBlank() && alertType.isNotBlank() && alertCode.isNotBlank() && token.isNotBlank(),
-                    modifier = Modifier.padding(top = 16.dp).fillMaxWidth()
-                        .height(50.dp),
+                    modifier = Modifier.padding(top = 16.dp).fillMaxWidth().height(50.dp),
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(
                         backgroundColor = if (!sending && title.isNotBlank() && body.isNotBlank() && token.isNotBlank()) R.color.Primay else Color.LightGray,
@@ -124,8 +154,7 @@ fun NotificationScreen(
                     )
                 ) {
                     if (sending) CircularProgressIndicator(
-                        modifier = Modifier.size(18.dp),
-                        strokeWidth = 2.dp
+                        modifier = Modifier.size(18.dp), strokeWidth = 2.dp
                     )
                     else Text("Send  Notification", fontSize = 16.sp)
                 }
@@ -160,9 +189,11 @@ fun NotificationScreen(
                     Text(n.body, fontSize = 14.sp, color = Color(0xFF666666))
                     Text(n.time, fontSize = 12.sp, color = Color(0xFFAAAAAA))
                 }
-                if (idx < notifications.lastIndex)
-                    Divider(Modifier.padding(horizontal = 16.dp))
+                if (idx < notifications.lastIndex) Divider(Modifier.padding(horizontal = 16.dp))
             }
         }
     }
 }
+
+// Model for a notification (received or sent)
+data class NotificationMessage(val title: String, val body: String, val time: String)
