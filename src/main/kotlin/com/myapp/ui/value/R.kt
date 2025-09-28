@@ -5,10 +5,11 @@ import androidx.compose.ui.graphics.Color
 object R {
     @Suppress("ClassName")
     object color {
-        val PictonBlue = Color(0xff30A3E6)
-        val BigStone = Color(0xff0D1D32)
-        val Elephant = Color(0xff0D2841)
-        val WildWatermelon = Color(0xffFF5370)
+        val PictonBlue = Color(0xFF4285F4) //Blue
+        val Elephant = Color(0xFF555555) //Gray
+        val BigStone = Color(0xFF2C3E50) //DarkGray
+        val WildWatermelon = Color(0xFFFF6B6B) //Red
+        val Primay = Color(0xFF303E4E)
     }
 
     @Suppress("ClassName")

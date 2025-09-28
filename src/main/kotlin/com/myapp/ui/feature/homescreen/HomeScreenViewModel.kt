@@ -1,4 +1,4 @@
-package com.myapp.ui.feature.main
+package com.myapp.ui.feature.homescreen
 
 import com.myapp.data.repo.MyRepo
 import com.myapp.util.ViewModel
@@ -6,9 +6,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(
+class HomeScreenViewModel @Inject constructor(
     private val myRepo: MyRepo,
-    // Inject your repos here...
 ) : ViewModel() {
     companion object {
         const val INIT_WELCOME_MSG = "Hello World!"
@@ -20,6 +19,4 @@ class MainViewModel @Inject constructor(
     fun onClickMeClicked() {
         _welcomeText.value = myRepo.getClickedWelcomeText()
     }
-
-
 }

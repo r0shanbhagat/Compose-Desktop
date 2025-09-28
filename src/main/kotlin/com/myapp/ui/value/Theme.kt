@@ -8,16 +8,36 @@ import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
+import com.myapp.ui.value.R.color.BigStone
+import com.myapp.ui.value.R.color.Elephant
+import com.myapp.ui.value.R.color.PictonBlue
+import com.myapp.ui.value.R.color.WildWatermelon
 
-// Color set
-val LightTheme = lightColors() // TODO :
-val DarkTheme = darkColors(
-    primary = R.color.PictonBlue,
+
+val LightTheme = lightColors(
+    primary = PictonBlue,
     onPrimary = Color.White,
-    secondary = R.color.Elephant,
+    secondary = Elephant,
     onSecondary = Color.White,
-    surface = R.color.BigStone,
-    error = R.color.WildWatermelon
+    surface = Color.White,
+    onSurface = Color.Black,
+    error = WildWatermelon,
+    onError = Color.White,
+    background = Color(0xFFF5F5F5),
+    onBackground = Color.Black,
+)
+
+val DarkTheme = darkColors(
+    primary = PictonBlue,
+    onPrimary = Color.White,
+    secondary = Elephant,
+    onSecondary = Color.White,
+    surface = BigStone,
+    onSurface = Color.White,
+    error = WildWatermelon,
+    onError = Color.White,
+    background = BigStone,
+    onBackground = Color.White,
 )
 
 @Composable
