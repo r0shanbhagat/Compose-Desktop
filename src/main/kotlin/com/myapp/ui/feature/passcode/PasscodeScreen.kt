@@ -23,20 +23,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import cafe.adriel.voyager.core.screen.Screen
-import com.myapp.di.AppComponent
 import com.myapp.ui.component.ThemedOutlinedTextField
 import com.myapp.ui.value.R
 
-class PasscodeScreen(
-    val appComponent: AppComponent,
-) : Screen {
-    init {
-        appComponent.inject(this)
-    }
-
+class PasscodeScreen {
     @Composable
-    override fun Content() {
+    fun Content() {
         PasscodeScreenContent()
     }
 }

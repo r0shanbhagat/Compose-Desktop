@@ -5,8 +5,6 @@ import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.rememberWindowState
 import cafe.adriel.voyager.navigator.Navigator
 import com.myapp.App
-import com.myapp.di.AppComponent
-import com.myapp.di.DaggerAppComponent
 import com.myapp.ui.feature.homescreen.HomeScreen
 import com.myapp.ui.feature.splash.SplashScreen
 import com.myapp.ui.value.MyAppTheme
@@ -29,8 +27,6 @@ class MainActivity : Activity() {
 
     override fun onCreate() {
         super.onCreate()
-        val appComponent: AppComponent = DaggerAppComponent.create()
-
         setContent {
             Window(
                 onCloseRequest = ::exitApplication,
@@ -41,9 +37,8 @@ class MainActivity : Activity() {
                 MyAppTheme {
                     Navigator(
                         screen = SplashScreen(
-                            appComponent = appComponent,
                             onSplashFinished = { navigator ->
-                                navigator.push(HomeScreen(appComponent))
+                                navigator.push(HomeScreen())
                             }
                         )
                     )

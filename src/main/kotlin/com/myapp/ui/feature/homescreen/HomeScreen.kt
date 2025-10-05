@@ -16,48 +16,35 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.myapp.di.AppComponent
 import com.myapp.model.AppIcon
+import com.myapp.ui.component.BaseScreen
 import com.myapp.ui.component.noRippleClickable
-import com.myapp.ui.feature.main.MainScreen
+import com.myapp.ui.feature.product.ProductListScreen
 import com.myapp.util.rememberBitmapResource
-import javax.inject.Inject
+import org.koin.compose.koinInject
 
 /**
  * Home screen
  *
- * @property appComponent
  * @constructor Create empty Home screen
  */
-class HomeScreen @Inject constructor(
-    private val appComponent: AppComponent
-) : Screen {
-
-    @Inject
-    lateinit var viewModel: HomeScreenViewModel
-
-    init {
-        appComponent.inject(this)
-    }
+class HomeScreen : BaseScreen<HomeScreenViewModel>() {
 
     @Composable
-    override fun Content() {
+    override fun getViewModel(): HomeScreenViewModel = koinInject()
+
+    @Composable
+    override fun contentView() {
         val navigator = LocalNavigator.currentOrThrow
-        val scope = rememberCoroutineScope()
-        LaunchedEffect(viewModel) {
-            viewModel.init(scope)
-        }
+        // Fix navigation to MainScreen
         HomeScreenWithCards(homeItemList(), onAppClick = {
-            navigator.push(MainScreen(appComponent))
+            navigator.push(ProductListScreen())
         })
     }
 }
@@ -135,5 +122,3 @@ fun homeItemList(): MutableList<AppIcon> {
         AppIcon("bigcommerce.png", rememberBitmapResource("drawables/logo.png"), "BigCommerce"),
     )
 }
-
-

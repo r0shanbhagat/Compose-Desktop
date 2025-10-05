@@ -1,11 +1,14 @@
 package com.myapp
 
 
+import com.myapp.data.di.dataModule
+import com.myapp.di.appModule
 import com.myapp.model.AppArgs
 import com.myapp.ui.feature.MainActivity
 import com.theapache64.cyclone.core.Application
 import com.toxicbakery.logging.Arbor
 import com.toxicbakery.logging.Seedling
+import org.koin.core.context.startKoin
 
 
 class App(
@@ -35,6 +38,9 @@ class App(
  * The magic begins here
  */
 fun main() {
+    startKoin {
+        modules(dataModule, appModule)
+    }
     val appArgs = AppArgs(
         appName = "My App", // To show on title bar
         version = "v1.0.0", // To show on title inside brackets

@@ -7,43 +7,29 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.myapp.di.AppComponent
+import com.myapp.ui.component.BaseScreen
 import com.myapp.util.rememberBitmapResource
-import javax.inject.Inject
+import org.koin.compose.koinInject
 
-class SplashScreen @Inject constructor(
-    appComponent: AppComponent,
-    private val onSplashFinished: (navigator: Navigator) -> Unit
-) : Screen {
-
-    @Inject
-    lateinit var splashViewModel: SplashViewModel
-
-
-    init {
-        appComponent.inject(this)
-    }
+class SplashScreen(
+    private val onSplashFinished: (navigator: Navigator) -> Unit,
+) : BaseScreen<SplashViewModel>() {
 
     @Composable
-    override fun Content() {
-        val scope = rememberCoroutineScope()
-        LaunchedEffect(splashViewModel) {
-            splashViewModel.init(scope)
-        }
+    override fun getViewModel(): SplashViewModel = koinInject()
 
-        val isSplashFinished by splashViewModel.isSplashFinished.collectAsState()
+    @Composable
+    override fun contentView() {
+        val isSplashFinished = viewModel.isSplashFinished.collectAsState()
         val navigator = LocalNavigator.currentOrThrow
-        LaunchedEffect(isSplashFinished, navigator) {
-            if (isSplashFinished) {
+        LaunchedEffect(isSplashFinished.value, navigator) {
+            if (isSplashFinished.value) {
                 onSplashFinished(navigator)
             }
         }
@@ -58,6 +44,8 @@ class SplashScreen @Inject constructor(
                 contentDescription = "Logo"
             )
         }
+
     }
+
 
 }

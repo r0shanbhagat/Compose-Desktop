@@ -1,26 +1,26 @@
 package com.myapp.ui.feature.login
 
 import androidx.compose.runtime.Composable
-import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import com.myapp.di.AppComponent
+import com.myapp.ui.component.BaseScreen
 import com.myapp.ui.feature.homescreen.HomeScreen
-import javax.inject.Inject
+import com.myapp.util.ViewModel
+import org.koin.compose.koinInject
 
 
-class LoginScreen @Inject constructor(
-    private val appComponent: AppComponent
-) : Screen {
+class LoginScreen : BaseScreen<ViewModel>() {
 
     @Composable
-    override fun Content() {
+    override fun getViewModel(): ViewModel = koinInject()
+
+
+    @Composable
+    override fun contentView() {
         val navigator = LocalNavigator.currentOrThrow
         LoginScreenContent(onLoginSuccess = {
             // Navigate to MainScreen on successful login
-            navigator.push(HomeScreen(appComponent))
+            navigator.push(HomeScreen())
         })
     }
 }
-
-

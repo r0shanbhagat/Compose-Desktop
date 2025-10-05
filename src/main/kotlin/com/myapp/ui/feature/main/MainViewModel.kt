@@ -1,15 +1,10 @@
 package com.myapp.ui.feature.main
 
-import com.myapp.data.repo.MyRepo
 import com.myapp.util.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import javax.inject.Inject
 
-class MainViewModel @Inject constructor(
-    private val myRepo: MyRepo,
-    // Inject your repos here...
-) : ViewModel() {
+class MainViewModel : ViewModel() {
     companion object {
         const val INIT_WELCOME_MSG = "Hello World!"
     }
@@ -18,7 +13,7 @@ class MainViewModel @Inject constructor(
     val welcomeText: StateFlow<String> = _welcomeText
 
     fun onClickMeClicked() {
-        _welcomeText.value = myRepo.getClickedWelcomeText()
+        _welcomeText.value = "Hello"
     }
 
 

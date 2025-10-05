@@ -1,14 +1,18 @@
 plugins {
-    kotlin("jvm")
-    id("com.google.devtools.ksp")
+    alias(libs.plugins.kotlin.jvm)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.serialization)
 }
-
 group = project.findProperty("package") as String
 version = project.findProperty("version") as String
 
 dependencies {
-    implementation(kotlin("stdlib"))
-    implementation(libs.dagger)
-    ksp(libs.dagger.compiler)
-    api("com.ToxicBakery.logging:arbor-jvm:1.35.72")
+    implementation(kotlin("stdlib")) // This is managed by the Kotlin plugin, so it stays as is.
+    // Koin for JVM
+    api(libs.koin.core)
+    api(libs.koin.compose)
+    // Ktor - Using the bundle
+    implementation(libs.bundles.ktor.client)
+    //Logging
+    api(libs.logging.arbor)
 }

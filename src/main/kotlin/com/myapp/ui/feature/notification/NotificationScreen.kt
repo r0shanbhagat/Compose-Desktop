@@ -29,20 +29,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
-import com.myapp.di.AppComponent
 import com.myapp.ui.component.ThemedOutlinedTextField
-import com.myapp.ui.feature.main.MainViewModel
 import com.myapp.ui.value.R
+import com.myapp.util.getKoinInstance
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class NotificationScreen(val appComponent: AppComponent) : Screen {
-    @Inject
-    lateinit var viewModel: MainViewModel
+class NotificationScreen : Screen {
+
+    private val viewModel: NotificationViewModel = getKoinInstance()
 
     init {
-        appComponent.inject(this)
+        // appComponent.inject(this) // Removed dependency injection line
     }
 
     @Composable

@@ -1,40 +1,67 @@
 [versions]
-dagger = "2.56.1"
+#Configuring versions
+ksp = "2.2.20-2.0.3"
+compose-plugin = "1.9.0"
+kotlin = "2.2.20"
+
 voyager = "1.1.0-beta03"
-kotlinx-coroutines = "1.8.0"
+kotlinx-coroutines = "1.8.1"
 mockito-inline = "5.2.0"
 mockito-kotlin = "2.2.0"
 mockito-core = "5.17.0"
-daggermock = "0.8.5"
 expekt = "1.0.0"
 cyclone = "1.0.0-alpha02"
-compose = "1.6.10"
-compose-plugin = "1.6.10"
-kotlin = "2.2.0"
-serialization = "1.9.0"
 
+koin = "4.1.1"
+ktor = "3.3.0"
+logger = "1.35.72"
+coilCompose = "3.3.0"
 
 [libraries]
-dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
-dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
 cyclone = { module = "com.github.theapache64:cyclone", version.ref = "cyclone" }
 voyager-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
 mockito-inline = { module = "org.mockito:mockito-inline", version.ref = "mockito-inline" }
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
+coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coilCompose" }
 mockito-kotlin = { module = "com.nhaarman.mockitokotlin2:mockito-kotlin", version.ref = "mockito-kotlin" }
-daggermock = { module = "com.github.fabioCollini.daggermock:daggermock", version.ref = "daggermock" }
-daggermock-kotlin = { module = "com.github.fabioCollini.daggermock:daggermock-kotlin", version.ref = "daggermock" }
 mockito-core = { module = "org.mockito:mockito-core", version.ref = "mockito-core" }
 expekt = { module = "com.github.theapache64:expekt", version.ref = "expekt" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinx-coroutines" }
 kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "kotlinx-coroutines" }
-compose-ui-test-junit4 = { module = "org.jetbrains.compose.ui:ui-test-junit4", version.ref = "compose" }
-compose-desktop = { module = "org.jetbrains.compose.desktop:desktop", version.ref = "compose" }
-kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
+compose-ui-test-junit4 = { module = "org.jetbrains.compose.ui:ui-test-junit4", version.ref = "compose-plugin" }
+compose-desktop = { module = "org.jetbrains.compose.desktop:desktop", version.ref = "compose-plugin" }
+# Koin
+koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin" }
+koin-compose = { group = "io.insert-koin", name = "koin-compose", version.ref = "koin" }
+#Ktor
+ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
+ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktor" }
+ktor-client-contentNegotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-client-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
+ktor-client-encoding = { group = "io.ktor", name = "ktor-client-encoding", version.ref = "ktor" }
+ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
+# Logging
+logging-arbor = { group = "com.ToxicBakery.logging", name = "arbor-jvm", version.ref = "logger" }
+
+[bundles]
+# A bundle to easily add all Ktor client dependencies at once
+ktor-client = [
+    "ktor-client-core",
+    "ktor-client-cio",
+    "ktor-client-contentNegotiation",
+    "ktor-client-logging",
+    "ktor-client-encoding",
+    "ktor-serialization-kotlinx-json"
+]
+
 
 [plugins]
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 
 [metadata]
 group = "com.myapp"
